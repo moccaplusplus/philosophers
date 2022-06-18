@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$msg.msg('philosophers.program.title')</title>
+    <style>
+    @page {
+        size: A4 portrait;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        margin: 3em;
+        padding: 0;
+        font-family: $fontFamily;
+        font-size: 1em;
+    }
+    h1 {
+        margin-top: 0;
+        font-size: 2em;
+    }
+    figure {
+        margin: 0;
+    }
+    svg {
+        width: 100%;
+        height: auto;
+    }
+    .logs {
+        font-size: 0.8em;
+    }
+    .stats div {
+        font-size: 0.9em;
+        margin: 0.5em 0;
+    }
+    .stats div span {
+        width: 16%;
+        display: inline-block;
+        text-align: center;
+    }
+    hr {
+        border: 0;
+        height: 0.5pt;
+        background: black;
+    }
+
+
+    </style>
+</head>
+<body>
+<h1>
+    $msg.msg('philosophers.program.title')<br/>
+    <small>$msg.msg('philosophers.report.smallTitle')</small>
+</h1>
+
+<h3>$msg.msg('philosophers.settings.title')</h3>
+<div>
+    <span>$msg.msg('philosophers.settings.n.symbol') <i>($msg.msg('philosophers.settings.n.shortInfo'))</i>:</span>
+    <strong>$settings.count</strong>
+</div>
+<div>
+    <span>$msg.msg('philosophers.settings.t.symbol') <i>($msg.msg('philosophers.settings.t.shortInfo'))</i>:</span>
+    <strong>$settings.time</strong>
+</div>
+<div>
+    <span>$msg.msg('philosophers.settings.mi.symbol') <i>($msg.msg('philosophers.settings.mi.shortInfo'))</i>:</span>
+    <strong>$settings.mi</strong>
+</div>
+<div>
+    <span>$msg.msg('philosophers.settings.lambda.symbol') <i>($msg.msg('philosophers.settings.lambda.shortInfo'))</i>:</span>
+    <span>#foreach($lambda in $settings.lambda)<b>$floating.format( $lambda )</b>#if( $foreach.hasNext ),#end #end</span>
+</div>
+<div>
+    <span>$msg.msg('philosophers.settings.distribution.symbol') <i>($msg.msg('philosophers.settings.distribution.shortInfo'))</i>:</span>
+    <strong>$settings.distribution</strong>
+</div>
+
+<h3>$msg.msg('philosophers.chart.title')</h3>
+<figure>
+    $plot
+</figure>
+
+<h3>$msg.msg('philosophers.report.stats.title')</h3>
+<div class="stats">
+    <div style="margin-top: 0;">
+        <span>$msg.msg('philosophers.report.stats.which')</span>
+        <span>$msg.msg('philosophers.report.stats.firstMeal')</span>
+        <span>$msg.msg('philosophers.report.stats.firstRejection')</span>
+        <span>$msg.msg('philosophers.report.stats.rejectedCount')</span>
+        <span>$msg.msg('philosophers.report.stats.acceptedCount')</span>
+        <span>$msg.msg('philosophers.report.stats.mealTime')</span>
+    </div>
+    <hr/>
+    #foreach( $i in [$settings.count..1])
+    #set($statsEntry = $stats.get($i - 1))
+    <div>
+        <span>$i</span>
+        <span>#if( $statsEntry.firstAccepted ) $decimal.format( $statsEntry.firstAccepted ) #else - #end</span>
+        <span>#if( $statsEntry.firstRejected ) $decimal.format( $statsEntry.firstRejected ) #else - #end</span>
+        <span>#if( $statsEntry.rejected ) $statsEntry.rejected #else - #end</span>
+        <span>#if( $statsEntry.accepted ) $statsEntry.accepted #else - #end</span>
+        <span>#if( $statsEntry.mealTime ) $decimal.format( $statsEntry.mealTime ) #else - #end</span>
+    </div>
+    #end
+    <hr/>
+    <div>
+        <span></span>
+        <span>#if( $total.firstAccepted > 0 ) $decimal.format( $total.firstAccepted ) #else - #end</span>
+        <span>#if( $total.firstRejected > 0 ) $decimal.format( $total.firstRejected ) #else - #end</span>
+        <span>#if( $total.rejected > 0 ) $total.rejected #else - #end</span>
+        <span>#if( $total.accepted > 0 ) $total.accepted #else - #end</span>
+        <span>#if( $total.mealTime > 0 ) $decimal.format( $total.mealTime ) #else - #end</span>
+    </div>
+</div>
+
+<h3>$msg.msg('philosophers.report.logs.title')</h3>
+<div class="logs">
+    #foreach($log in $logs)$log<br/>#end
+</div>
+</body>
+</html>

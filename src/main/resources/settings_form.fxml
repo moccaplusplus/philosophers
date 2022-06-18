@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import smb.philosophers.canteen.Distribution?>
+<?import smb.philosophers.gui.FormLabel?>
+<?import javafx.scene.control.ListView?>
+<fx:root hgap="10" maxWidth="800" minWidth="450" type="javafx.scene.layout.GridPane" vgap="5"
+         xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+
+    <padding>
+        <Insets topRightBottomLeft="10"/>
+    </padding>
+
+    <columnConstraints>
+        <ColumnConstraints percentWidth="40"/>
+        <ColumnConstraints percentWidth="60"/>
+    </columnConstraints>
+
+    <FormLabel text="%philosophers.settings.t.symbol" subText="%philosophers.settings.t.shortInfo"
+               GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <TextField fx:id="timeField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+    <FormLabel text="%philosophers.settings.mi.symbol" subText="%philosophers.settings.mi.shortInfo"
+               GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <TextField fx:id="miField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+    <FormLabel text="%philosophers.settings.distribution.symbol" subText="%philosophers.settings.distribution.shortInfo"
+               GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <ComboBox fx:id="distributionCombo" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <Distribution fx:value="FIXED"/>
+                <Distribution fx:value="RANDOM"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <FormLabel text="%philosophers.settings.lambda.symbol" subText="%philosophers.settings.lambda.shortInfo"
+               GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+    <ListView fx:id="lambdaList" editable="true" prefHeight="110" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+</fx:root>
